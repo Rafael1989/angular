@@ -1,12 +1,13 @@
 <div class="container">
-    <div class="ui-g">
+  <div class="ui-g">
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
       <div class="ui-g-12">
         <h1>Lançamentos</h1>
       </div>
 
       <div class="ui-g-12 ui-fluid">
         <label>Descrição</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="descricao" [(ngModel)]="descricao">
       </div>
 
       <div class="ui-g-12">
@@ -18,12 +19,40 @@
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="button" label="Pesquisar"></button>
+        <button pButton type="submit" label="Pesquisar"></button>
       </div>
+    </form>
     </div>
+
     <div class="ui-g">
       <div class="ui-g-12">
-        <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid>
+        <!-- <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid> -->
+        <p-table [value]="lancamentos" [paginator]="true" [rows]="2" [responsive]=true>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Pessoa</th>
+                  <th>Descrição</th>
+                  <th class="col-data-header">Vencimento</th>
+                  <th class="col-data-header">Pagamento</th>
+                  <th class="col-data-header">Valor</th>
+                  <th class="col-data-header"></th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-lancamento>
+              <tr>
+                  <td>{{lancamento.pessoa}}</td>
+                  <td>{{lancamento.descricao}}</td>
+                  <td class="col-data-content">{{lancamento.dataVencimento | date:'d/M/yy'}}</td>
+                  <td class="col-data-content">{{lancamento.dataPagamento | date:'d/M/yy'}}</td>
+                  <td class="col-valor-content" [ngStyle]="{ color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'}">{{lancamento.valor | number:'1.2-2'}}</td>
+                  <td class="col-acoes">
+                      <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+                      <button pButton icon="pi pi-trash" style="margin-left: 5px;" pTooltip="Excluir" tooltipPosition="top"></button>
+                  </td>
+              </tr>
+          </ng-template>
+        </p-table>
+
       </div>
       <div class="ui-g-12">
         <a pButton label="Novo Lançamento"></a>

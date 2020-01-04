@@ -1,4 +1,6 @@
+import { LancamentoService } from './lancamento.service';
 import { SharedModule } from './../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
@@ -13,9 +15,6 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.component';
-
-
 
 @NgModule({
   imports: [
@@ -33,16 +32,18 @@ import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.compo
 
     CurrencyMaskModule,
 
-    SharedModule
+    SharedModule,
+
+    HttpClientModule
   ],
   declarations: [
     LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
-    LancamentoGridComponent
+    LancamentosPesquisaComponent
   ],
   exports: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent
-  ]
+  ],
+  providers: [LancamentoService]
 })
 export class LancamentosModule { }
