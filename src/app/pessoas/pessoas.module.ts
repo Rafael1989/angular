@@ -1,9 +1,5 @@
 import { SharedModule } from './../shared/shared.module';
 import { InputMaskModule } from 'primeng/components/inputmask/inputmask';
-import { DropdownModule } from 'primeng/components/dropdown/dropdown';
-import { SelectButtonModule } from 'primeng/components/selectbutton/selectbutton';
-import { CalendarModule } from 'primeng/components/calendar/calendar';
-import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtextarea';
 import { TooltipModule } from 'primeng/components/tooltip/tooltip';
 import { TableModule } from 'primeng/components/table/table';
 import { ButtonModule } from 'primeng/components/button/button';
@@ -14,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
+import { PessoaService } from './pessoa-service.service';
 
 
 
@@ -37,6 +34,7 @@ import { InputTextModule } from 'primeng/components/inputtext/inputtext';
   exports: [
     PessoasPesquisaComponent,
     PessoasCadastroComponent
-  ]
+  ],
+  providers: [PessoaService]
 })
 export class PessoasModule { }
