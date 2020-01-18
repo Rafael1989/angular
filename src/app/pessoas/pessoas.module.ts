@@ -10,9 +10,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
-import { PessoaService } from './pessoa-service.service';
-
-
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 @NgModule({
   imports: [
@@ -24,6 +22,7 @@ import { PessoaService } from './pessoa-service.service';
     TableModule,
     TooltipModule,
     InputMaskModule,
+    PessoasRoutingModule,
     SharedModule
   ],
   declarations: [
@@ -31,10 +30,6 @@ import { PessoaService } from './pessoa-service.service';
     PessoasCadastroComponent,
     PessoasPesquisaComponent
   ],
-  exports: [
-    PessoasPesquisaComponent,
-    PessoasCadastroComponent
-  ],
-  providers: [PessoaService]
+  exports: []
 })
 export class PessoasModule { }

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PessoaService, PessoaFilter } from '../pessoa-service.service';
+import { PessoaService, PessoaFilter } from '../pessoa-service';
 import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
 import { ToastyService } from 'ng2-toasty';
 import { Table } from 'primeng/components/table/table';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -20,10 +21,11 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor(private pessoaService: PessoaService,
     private toastyService: ToastyService,
     private confirmationService: ConfirmationService,
-    private errorHandlerService: ErrorHandlerService) {}
+    private errorHandlerService: ErrorHandlerService,
+    private title: Title) {}
 
   ngOnInit() {
-    
+    this.title.setTitle('Pesquisa de pessoas');
   }
 
   pesquisar(pagina = 0) {
@@ -53,7 +55,6 @@ export class PessoasPesquisaComponent implements OnInit {
   }
 
   excluir(pessoa: any) {
-    console.log(pessoa.codigo);
     this.pessoaService.excluir(pessoa.codigo)
       .then(() => {
         this.gridPessoa.reset();

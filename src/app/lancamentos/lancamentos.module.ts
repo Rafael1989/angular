@@ -1,4 +1,3 @@
-import { LancamentoService } from './lancamento.service';
 import { SharedModule } from './../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -15,6 +14,8 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
+
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { CommonModule } from '@angular/common';
     CurrencyMaskModule,
 
     SharedModule,
+    LancamentosRoutingModule,
 
     HttpClientModule
   ],
@@ -40,10 +42,6 @@ import { CommonModule } from '@angular/common';
     LancamentoCadastroComponent,
     LancamentosPesquisaComponent
   ],
-  exports: [
-    LancamentosPesquisaComponent,
-    LancamentoCadastroComponent
-  ],
-  providers: [LancamentoService]
+  exports: []
 })
 export class LancamentosModule { }

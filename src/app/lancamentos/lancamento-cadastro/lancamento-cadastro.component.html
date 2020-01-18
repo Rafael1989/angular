@@ -2,7 +2,7 @@
   <form autocomplete="off" #lancamentoForm="ngForm" (ngSubmit)="salvar(lancamentoForm)">
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>Novo Lançamento</h1>
+        <h1>{{editando ? 'Edição de' : 'Novo'}} Lançamento</h1>
       </div>
 
       <div class="ui-g-12">
@@ -30,12 +30,12 @@
           <app-message [control]="valor" error="required" text="Informe um valor"></app-message>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
-          <label>Categoria {{categoria.value}}</label>
+          <label>Categoria</label>
           <p-dropdown [options]="categorias" placeholder="Selecione" #categoria="ngModel" name="categoria" [(ngModel)]="lancamento.categoria.codigo" required></p-dropdown>
           <app-message [control]="categoria" error="required" text="Informe uma categoria"></app-message>
       </div>
       <div class="ui-g-6 ui-md-6 ui-fluid">
-          <label>Pessoa {{pessoa.value}}</label>
+          <label>Pessoa</label>
           <p-dropdown [options]="pessoas" [filter]="true" placeholder="Selecione" #pessoa="ngModel" name="pessoa" [(ngModel)]="lancamento.pessoa.codigo" required></p-dropdown>
           <app-message [control]="pessoa" error="required" text="Informe uma pessoa"></app-message>
       </div>
@@ -45,8 +45,8 @@
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" [disabled]="!lancamentoForm.valid" label="Salvar"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info"></button>
-        <a href="javascript:;">Voltar para a pesquisa</a>
+        <button pButton type="button" label="Novo" class="ui-button-info" (click)="novo(lancamentoForm)"></button>
+        <a routerLink="/lancamentos">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>

@@ -6,20 +6,29 @@ import { ToastyModule} from 'ng2-toasty';
 import {ConfirmDialogModule} from 'primeng/components/confirmdialog/confirmdialog';
 import { ConfirmationService } from 'primeng/components/common/api';
 import { CategoriaService } from '../categorias/categoria-service.service';
+import { RouterModule } from '@angular/router';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { Title } from '@angular/platform-browser';
+import { LancamentoService } from '../lancamentos/lancamento.service';
+import { PessoaService } from '../pessoas/pessoa-service';
 
 @NgModule({
   imports: [
     CommonModule,
     ToastyModule.forRoot(),
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RouterModule
   ],
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, PaginaNaoEncontradaComponent],
   exports: [NavbarComponent, ToastyModule, ConfirmDialogModule],
   providers: [
+    LancamentoService,
+    PessoaService,
     ErrorHandlerService,
     ConfirmationService,
     CategoriaService,
-    {provide: LOCALE_ID,useValue: 'pt-BR'}
+    {provide: LOCALE_ID,useValue: 'pt-BR'},
+    Title
   ]
 })
 export class CoreModule { }
