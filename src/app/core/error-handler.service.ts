@@ -9,20 +9,28 @@ export class ErrorHandlerService {
   handle(errorResponse: any) {
     let msg: string;
 
-    // if(errorResponse.status >== 400 && errorResponse.status <== 499) {
-
-    // }
-
-    if(typeof errorResponse === 'string') {
+    if (typeof errorResponse === 'string') {
       msg = errorResponse;
-    } else {
-      if(errorResponse.status > 399 && errorResponse.status < 500){
-        msg = errorResponse.error[0].mensagemUsuario;
-      }else{
-        msg = 'Erro ao processar serviço remoto. Tente novamente';
+
+    } else if (errorResponse.status >= 400 && errorResponse.status <= 499) {
+      let errors;
+      msg = 'Ocorreu um erro ao processar a sua solicitação';
+
+      if(errorResponse.status === 403) {
+        msg = 'Você não tem permissão para executar esta ação';
       }
-      
-      console.log('Ocorreu um erro', errorResponse);
+
+      try {
+        errors = errorResponse.json();
+
+        msg = errors[0].mensagemUsuario;
+      } catch (e) { }
+
+      console.error('Ocorreu um erro', errorResponse);
+
+    } else {
+      msg = 'Erro ao processar serviço remoto. Tente novamente.';
+      console.error('Ocorreu um erro', errorResponse);
     }
 
     this.toastyService.error(msg);

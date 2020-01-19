@@ -35,7 +35,12 @@
                 <td>{{pessoa.endereco.cidade}}</td>
                 <td>{{pessoa.endereco.estado}}</td>
                 <td class="col-status">
-                  <a href="#" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'" tooltipPosition="top" (click)="mudarStatus(pessoa)">{{pessoa.ativo ? 'Ativo' : 'Inativo'}}</a>
+                  <a href="javascript:;"
+                    [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
+                    tooltipPosition="top"
+                    (click)="alternarStatus(pessoa)">
+                  {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
+                </a>
                 </td>
                 <td class="col-acoes">
                     <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas',pessoa.codigo]"></a>

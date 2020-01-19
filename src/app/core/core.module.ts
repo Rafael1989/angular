@@ -11,6 +11,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
 import { Title } from '@angular/platform-browser';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoa-service';
+import { AuthService } from '../seguranca/auth.service';
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
 
 @NgModule({
   imports: [
@@ -19,13 +21,15 @@ import { PessoaService } from '../pessoas/pessoa-service';
     ConfirmDialogModule,
     RouterModule
   ],
-  declarations: [NavbarComponent, PaginaNaoEncontradaComponent],
+  declarations: [NavbarComponent, PaginaNaoEncontradaComponent,NaoAutorizadoComponent],
   exports: [NavbarComponent, ToastyModule, ConfirmDialogModule],
   providers: [
     LancamentoService,
     PessoaService,
     ErrorHandlerService,
     ConfirmationService,
+    AuthService,
+
     CategoriaService,
     {provide: LOCALE_ID,useValue: 'pt-BR'},
     Title
