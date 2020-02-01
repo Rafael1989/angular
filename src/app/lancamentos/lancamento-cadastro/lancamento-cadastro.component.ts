@@ -3,11 +3,12 @@ import { CategoriaService } from 'src/app/categorias/categoria-service.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { PessoaService } from 'src/app/pessoas/pessoa-service';
 import { Lancamento } from 'src/app/core/model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LancamentoService } from '../lancamento.service';
 import { ToastyService } from 'ng2-toasty';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -23,7 +24,8 @@ export class LancamentoCadastroComponent implements OnInit {
 
   categorias = [];
   pessoas = [];
-  lancamento = new Lancamento();
+  //lancamento = new Lancamento();
+  formulario: FormGroup;
 
   constructor(private categoriaService: CategoriaService,
               private pessoaService: PessoaService,
@@ -32,9 +34,12 @@ export class LancamentoCadastroComponent implements OnInit {
               private errorHandler: ErrorHandlerService,
               private route: ActivatedRoute,
               private router: Router,
-              private title: Title) { }
+              private title: Title,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.configurarFormulario();
+
     const codigoLancamento = this.route.snapshot.params['codigo'];
     
     this.title.setTitle('Novo lançamento');
@@ -47,29 +52,60 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarPessoas();
   }
 
+  configurarFormulario() {
+    this.formulario = this.formBuilder.group({
+      codigo: [],
+      tipo: ['RECEITA', Validators.required],
+      dataVencimento: [null, Validators.required],
+      dataPagamento: [],
+      descricao: [null, [this.validarObrigatoriedade, this.validarTamanhoMinimo]],
+      valor: [null,Validators.required],
+      pessoa: this.formBuilder.group({
+        codigo: [null, Validators.required],
+        nome: []
+      }),
+      categoria: this.formBuilder.group({
+        codigo: [null, Validators.required],
+        nome: []
+      }),
+      observacao: []
+    });
+  }  
+
+  validarObrigatoriedade(input: FormControl) {
+    return (input.value ? null : {obrigatoriedade: true})
+  }
+
+  validarTamanhoMinimo(valor: number) {
+    return (input: FormControl) => {
+      return (!input.value || input.value.length >= valor) ? null : {tamanhoMinimo: {tamanho: valor}}
+    };
+  }
+
   get editando() {
-    return Boolean(this.lancamento.codigo)
+    return Boolean(this.formulario.get('codigo').value);
   }
 
   carregarLancamento(codigo: number) {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(lancamento => {
-        this.lancamento = lancamento;
+        // this.lancamento = lancamento;
+        this.formulario.patchValue(lancamento);
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  salvar(form: FormControl) {
+  salvar() {
     if (this.editando) {
-      this.atualizarLancamento(form);
+      this.atualizarLancamento();
     }else {
-      this.adicionarLancamento(form);
+      this.adicionarLancamento();
     }
   }
 
-  adicionarLancamento(form: FormControl) {
-    this.lancamentoService.adicionar(this.lancamento)
+  adicionarLancamento() {
+    this.lancamentoService.adicionar(this.formulario.value)
     .then(lancamentoAdicionado => {
       this.toastyService.success('Lançamento adicionado com sucesso!');
       
@@ -78,11 +114,12 @@ export class LancamentoCadastroComponent implements OnInit {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
-  atualizarLancamento(form: FormControl) {
-    console.log(this.lancamento);
-    this.lancamentoService.atualizar(this.lancamento)
+  atualizarLancamento() {
+    console.log(this.formulario.value);
+    this.lancamentoService.atualizar(this.formulario.value)
       .then(lancamento => {
-        this.lancamento = lancamento;
+        // this.lancamento = lancamento;
+        this.formulario.patchValue(lancamento);
 
         this.toastyService.success('Lançamento alterado com sucesso!');
         this.atualizarTituloEdicao();
@@ -107,7 +144,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   novo(form: FormControl) {
-    form.reset();
+    this.formulario.reset();
     setTimeout(function() {
       this.lancamento = new Lancamento();
     }.bind(this),1);
@@ -116,7 +153,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   atualizarTituloEdicao() {
-    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`);
+    this.title.setTitle(`Edição de lançamento: ${this.formulario.get('descricao').value}`);
   }
 
 }

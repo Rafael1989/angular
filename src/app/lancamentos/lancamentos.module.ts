@@ -9,7 +9,7 @@ import { TooltipModule } from 'primeng/components/tooltip/tooltip';
 import { TableModule } from 'primeng/components/table/table';
 import { ButtonModule } from 'primeng/components/button/button';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { NgModule } from '@angular/core';
@@ -21,6 +21,7 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     InputTextModule,
     ButtonModule,

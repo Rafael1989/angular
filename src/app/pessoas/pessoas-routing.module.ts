@@ -5,9 +5,9 @@ import { PessoasCadastroComponent } from './pessoas-cadastro/pessoas-cadastro.co
 import { AuthGuard } from '../seguranca/auth.guard';
 
 const routes: Routes = [
-    {path: 'pessoas', component: PessoasPesquisaComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_PESQUISAR_PESSOA']}},
-    {path: 'pessoas/nova', component: PessoasCadastroComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_CADASTRAR_PESSOA']}},
-    {path: 'pessoas/:codigo', component: PessoasCadastroComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_CADASTRAR_PESSOA']}}
+    {path: '', component: PessoasPesquisaComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_PESQUISAR_PESSOA']}},
+    {path: 'nova', component: PessoasCadastroComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_CADASTRAR_PESSOA']}},
+    {path: ':codigo', component: PessoasCadastroComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_CADASTRAR_PESSOA']}}
   ];
 
 @NgModule({
