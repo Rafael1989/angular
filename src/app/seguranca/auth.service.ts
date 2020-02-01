@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+
+export interface Response {
+  access_token: string;
+}
 
 @Injectable()
 export class AuthService {
 
-  oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  oauthTokenUrl: string;
   jwtPayload: any;
-  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
+  tokensRevokeUrl: string;
 
   constructor(private http: HttpClient, 
         private jwtHelperService: JwtHelperService) { 
+          this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
+          this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
           this.carregarToken();
   }
 
@@ -88,7 +95,7 @@ export class AuthService {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 
-  private armazenarToken(token: any) {
+  private armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelperService.decodeToken(token);
     localStorage.setItem('token',token);
   }

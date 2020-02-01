@@ -8,7 +8,6 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
 import { PessoasCadastroComponent } from './pessoas-cadastro/pessoas-cadastro.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { PessoasRoutingModule } from './pessoas-routing.module';
 
@@ -26,7 +25,6 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
     SharedModule
   ],
   declarations: [
-    PessoasGridComponent,
     PessoasCadastroComponent,
     PessoasPesquisaComponent
   ],
