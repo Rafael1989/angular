@@ -10,6 +10,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { PessoasRoutingModule } from './pessoas-routing.module';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule} from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
     TooltipModule,
     InputMaskModule,
     PessoasRoutingModule,
-    SharedModule
+    SharedModule,
+    PanelModule,
+    DialogModule
   ],
   declarations: [
     PessoasCadastroComponent,

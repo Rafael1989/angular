@@ -13,6 +13,8 @@ import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoa-service';
 import { AuthService } from '../seguranca/auth.service';
 import { NaoAutorizadoComponent } from './nao-autorizado.component';
+import { DashboardService } from '../dashboard/dashboard.service';
+import { RelatoriosService } from '../relatorios/relatorios.service';
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import { NaoAutorizadoComponent } from './nao-autorizado.component';
     AuthService,
 
     CategoriaService,
+    DashboardService,
+    RelatoriosService,
     {provide: LOCALE_ID,useValue: 'pt-BR'},
     Title
   ]

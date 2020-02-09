@@ -51,7 +51,9 @@
                   <td>{{lancamento.descricao}}</td>
                   <td class="col-data-content">{{lancamento.dataVencimento | date:'d/M/yy'}}</td>
                   <td class="col-data-content">{{lancamento.dataPagamento | date:'d/M/yy'}}</td>
-                  <td class="col-valor-content" [ngStyle]="{ color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'}">{{lancamento.valor | number:'1.2-2'}}</td>
+                  <td class="col-valor-content" 
+                  [ngStyle]="{ color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'}">
+                  {{lancamento.valor | number:'1.2-2'}}</td>
                   <td class="col-acoes">
                       <a pButton icon="pi pi-pencil" pTooltip="Editar" [routerLink]="['/lancamentos',lancamento.codigo]" tooltipPosition="top"></a>
                       <button pButton icon="pi pi-trash" style="margin-left: 5px;" pTooltip="Excluir" tooltipPosition="top" [disabled]="!authService.temPermissao('ROLE_REMOVER_LANCAMENTO')" (click)="confirmarExclusao(lancamento)"></button>
