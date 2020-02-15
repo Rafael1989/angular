@@ -14,7 +14,9 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FileUploadModule} from 'primeng/fileupload';
 import { LancamentosRoutingModule } from './lancamentos-routing.module';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
     SharedModule,
     LancamentosRoutingModule,
+    FileUploadModule,
+    ProgressSpinnerModule,
 
     HttpClientModule
   ],

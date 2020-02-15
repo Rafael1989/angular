@@ -15,8 +15,6 @@ import { Title } from '@angular/platform-browser';
 export class PessoasCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
-  exibindoFormularioContato = false;
-  contato: Contato;
 
   constructor(private pessoaService: PessoaService,
               private toastyService: ToastyService,
@@ -33,11 +31,6 @@ export class PessoasCadastroComponent implements OnInit {
     if(codigoPessoa) {
       this.carregarPessoa(codigoPessoa);
     }
-  }
-
-  prepararNovoContato() {
-    this.exibindoFormularioContato = true;
-    this.contato = new Contato();
   }
 
   get editando() {
