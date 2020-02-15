@@ -13,6 +13,7 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
 import { PanelModule } from 'primeng/panel';
 import { DialogModule} from 'primeng/dialog';
 import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa-cadastro-contato.component';
+import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa
     PessoasRoutingModule,
     SharedModule,
     PanelModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   declarations: [
     PessoasCadastroComponent,
