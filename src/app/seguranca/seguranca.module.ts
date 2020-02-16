@@ -9,6 +9,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import {MoneyHttpInterceptor} from './money-http-interceptor';
 import { HTTP_INTERCEPTORS, HttpInterceptor } from '@angular/common/http';
 import { AuthGuard} from './auth.guard';
+import { environment } from 'src/environments/environment';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -22,8 +23,8 @@ export function tokenGetter(): string {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8080'],
-        blacklistedRoutes: ['http://localhost:8080/oauth/token']
+        whitelistedDomains: environment.tokenWhitelistedDomains,
+        blacklistedRoutes: environment.tokenBlacklistedRoutes
       }
     }),
   

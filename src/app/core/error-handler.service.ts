@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ToastyService } from 'ng2-toasty';
+import { MessageService} from 'primeng/components/common/messageservice';
 
 @Injectable()
 export class ErrorHandlerService {
 
-  constructor(private toastyService: ToastyService) { }
+  constructor(
+    // private toastyService: ToastyService
+    private messageService: MessageService
+    ) { }
 
   handle(errorResponse: any) {
     let msg: string;
@@ -13,7 +17,6 @@ export class ErrorHandlerService {
       msg = errorResponse;
 
     } else if (errorResponse.status >= 400 && errorResponse.status <= 499) {
-      let errors;
       msg = 'Ocorreu um erro ao processar a sua solicitação';
 
       if(errorResponse.status === 403) {
@@ -21,9 +24,7 @@ export class ErrorHandlerService {
       }
 
       try {
-        errors = errorResponse.json();
-
-        msg = errors[0].mensagemUsuario;
+        msg = errorResponse.error[0].mensagemUsuario;
       } catch (e) { }
 
       console.error('Ocorreu um erro', errorResponse);
@@ -33,6 +34,7 @@ export class ErrorHandlerService {
       console.error('Ocorreu um erro', errorResponse);
     }
 
-    this.toastyService.error(msg);
+    // this.toastyService.error(msg);
+    this.messageService.add({severity: 'error', detail: msg});
   }
 }

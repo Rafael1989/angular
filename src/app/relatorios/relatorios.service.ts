@@ -20,7 +20,6 @@ export class RelatoriosService {
 
     return this.http.get(`${this.lancamentosUrl}/relatorios/por-pessoa`,
       {params, responseType: 'blob'})
-        .toPromise()
-        .then(response => response);
+        .toPromise();
   }
 }

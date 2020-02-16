@@ -80,9 +80,8 @@ export class PessoaService {
     // headers = headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     headers = headers.append('Content-Type', 'application/json');
 
-    return this.http.put(`${this.pessoasUrl}/${pessoa.codigo}`,pessoa,{headers})
-      .toPromise()
-      .then(response => response as any);
+    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`,pessoa,{headers})
+      .toPromise();
   }  
 
   buscarPorCodigo(codigo: number): Promise<Pessoa> {
@@ -90,21 +89,20 @@ export class PessoaService {
     // headers = headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     headers = headers.append('Content-Type', 'application/json');
 
-    return this.http.get(`${this.pessoasUrl}/${codigo}`,{headers})
-      .toPromise()
-      .then(response => response as any);
+    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`,{headers})
+      .toPromise();
   }
 
   listarEstados(): Promise<Estado[]> {
-    return this.http.get(this.estadosUrl)
-      .toPromise().then(response => response as Estado[]);
+    return this.http.get<Estado[]>(this.estadosUrl)
+      .toPromise();
   }
 
   pesquisarCidades(estado): Promise<Cidade[]> {
     let params = new HttpParams();
     params = params.set('estado', estado);
-    return this.http.get(this.cidadesUrl, {params})
-      .toPromise().then(response => response as Cidade[]);
+    return this.http.get<Cidade[]>(this.cidadesUrl, {params})
+      .toPromise();
   }
 
 

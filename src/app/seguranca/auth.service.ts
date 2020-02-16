@@ -29,15 +29,14 @@ export class AuthService {
     console.log(headers);
     console.log(body);
 
-    return this.http.post(this.oauthTokenUrl,body,{ headers, withCredentials: true })
+    return this.http.post<any>(this.oauthTokenUrl,body,{ headers, withCredentials: true })
       .toPromise()
       .then(response => {
         this.armazenarToken(response.access_token);
       })
       .catch(response => {
-        const responseError = response.error;
         if(response.status === 400) {
-          if(responseError.error === 'invalid_grant') {
+          if(response.error === 'invalid_grant') {
             return Promise.reject('Usuário ou senha inválida');
           }
         }
@@ -78,7 +77,7 @@ export class AuthService {
     headers = headers.append('Authorization','Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = 'grant_type=refresh_token';
-    return this.http.post(this.oauthTokenUrl,body,{headers, withCredentials: true})
+    return this.http.post<any>(this.oauthTokenUrl,body,{headers, withCredentials: true})
       .toPromise()
       .then(response => {
         this.armazenarToken(response.access_token);

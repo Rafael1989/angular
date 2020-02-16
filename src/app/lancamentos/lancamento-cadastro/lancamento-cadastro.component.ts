@@ -9,6 +9,7 @@ import { ToastyService } from 'ng2-toasty';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { timingSafeEqual } from 'crypto';
+import { MessageService} from 'primeng/components/common/messageservice';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -31,7 +32,8 @@ export class LancamentoCadastroComponent implements OnInit {
   constructor(private categoriaService: CategoriaService,
               private pessoaService: PessoaService,
               private lancamentoService: LancamentoService,
-              private toastyService: ToastyService,
+              // private toastyService: ToastyService,
+              private messageService: MessageService,
               private errorHandler: ErrorHandlerService,
               private route: ActivatedRoute,
               private router: Router,
@@ -71,7 +73,8 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   erroUpload(event) {
-    this.toastyService.error('Erro ao tentar enviar anexo!');
+    // this.toastyService.error('Erro ao tentar enviar anexo!');
+    this.messageService.add({severity: 'error', detail: 'Erro ao tentar enviar anexo!'});
 
     this.uploadEmAndamento = false;
   }
@@ -154,7 +157,8 @@ export class LancamentoCadastroComponent implements OnInit {
   adicionarLancamento() {
     this.lancamentoService.adicionar(this.formulario.value)
     .then(lancamentoAdicionado => {
-      this.toastyService.success('Lançamento adicionado com sucesso!');
+      // this.toastyService.success('Lançamento adicionado com sucesso!');
+      this.messageService.add({severity: 'success', detail: 'Lançamento adicionado com sucesso!'});
       
       this.router.navigate(['/lancamentos',lancamentoAdicionado.codigo]);
     })
@@ -168,7 +172,8 @@ export class LancamentoCadastroComponent implements OnInit {
         // this.lancamento = lancamento;
         this.formulario.patchValue(lancamento);
 
-        this.toastyService.success('Lançamento alterado com sucesso!');
+        // this.toastyService.success('Lançamento alterado com sucesso!');
+        this.messageService.add({severity: 'success', detail: 'Lançamento alterado com sucesso!'});
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
